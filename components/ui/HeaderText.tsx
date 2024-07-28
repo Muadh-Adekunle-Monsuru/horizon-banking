@@ -7,14 +7,14 @@ export default function HeaderText({
 	user,
 }: HeaderBoxProps) {
 	return (
-		<div className='header-box'>
-			<h1 className='header-box-title'>
+		<div className='header-box dark:text-white'>
+			<h1 className='header-box-title dark:text-white'>
 				{title}
 				{type === 'greeting' && (
-					<span className='text-bankGradient text-blue-800'>&nbsp;{user}</span>
+					<span className='text-bankGradient '>&nbsp;{user}</span>
 				)}
 			</h1>
-			<p className='header-box-subtext'>{subtext}</p>
+			<p className='header-box-subtext dark:text-gray-300'>{subtext}</p>
 		</div>
 	);
 }

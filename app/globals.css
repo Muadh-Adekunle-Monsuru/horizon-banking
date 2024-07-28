@@ -184,7 +184,7 @@
 	}
 
 	.total-balance {
-		@apply flex w-full items-center gap-4 rounded-xl border border-gray-200 p-4  sm:gap-6 sm:p-6;
+		@apply flex w-full items-center gap-4 rounded-xl border border-gray-200 dark:border-gray-700 p-4  sm:gap-6 sm:p-6;
 	}
 
 	.total-balance-chart {
@@ -221,7 +221,7 @@
 
 	/* Right sidebar */
 	.right-sidebar {
-		@apply no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 xl:flex w-[355px] xl:overflow-y-scroll !important;
+		@apply no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 dark:border-gray-700 xl:flex w-[355px] xl:overflow-y-scroll !important;
 	}
 
 	.profile-banner {

@@ -20,10 +20,15 @@ import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
 import CustomInput from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
+import SignIn from '@/app/(auth)/sign-in/page';
+import { useRouter } from 'next/navigation';
+import SignUp from '@/app/(auth)/sign-up/page';
+import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
 
 export default function AuthForm({ type }: { type: string }) {
 	const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
 	const formSchema = authFormSchema(type);
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -34,10 +39,27 @@ export default function AuthForm({ type }: { type: string }) {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
+	async function onSubmit(values: z.infer<typeof formSchema>) {
 		setLoading(true);
 		console.log(values);
-		setLoading(false);
+
+		try {
+			if (type === 'sign-up') {
+				const newUser = await signUp(values);
+
+				setUser(newUser);
+			}
+			if (type === 'sign-in') {
+				const response = await signIn(
+					values
+				);
+				if (response) router.push('/');
+			}
+		} catch (e) {
+			console.log(e);
+		} finally {
+			setLoading(false);
+		}
 	}
 	return (
 		<section className='auth-form'>
@@ -95,6 +117,12 @@ export default function AuthForm({ type }: { type: string }) {
 										name='address1'
 										placeholder='Address... '
 									/>
+									<CustomInput
+										control={form.control}
+										label='City'
+										name='city'
+										placeholder='City ... '
+									/>
 									<div className='flex gap-4'>
 										<CustomInput
 											control={form.control}
@@ -114,7 +142,8 @@ export default function AuthForm({ type }: { type: string }) {
 											control={form.control}
 											label='Date of Birth'
 											name='dateOfBirth'
-											placeholder='Date of Birth'
+											placeholder='YYYY-MM-DD'
+											date
 										/>
 										<CustomInput
 											control={form.control}

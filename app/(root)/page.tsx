@@ -1,22 +1,19 @@
 import HeaderText from '@/components/ui/HeaderText';
 import RightSidebar from '@/components/ui/RightSidebar';
 import TotalBalanceBox from '@/components/ui/TotalBalanceBox';
+import { getLoggedInUser } from '@/lib/actions/user.actions';
 import React from 'react';
 
-export default function Home() {
-	const user = {
-		firstName: 'Jackson',
-		lastName: 'Andrews',
-		email: 'jackson@gmail.com',
-	};
+export default async function Home() {
+	const user = await getLoggedInUser();
 	return (
-		<section className='home'>
+		<section className='home dark:bg-darkmode'>
 			<div className='home-content'>
 				<header className='home-header'>
 					<HeaderText
 						type='greeting'
 						title='Welcome'
-						user={user.firstName}
+						user={user?.name}
 						subtext='Access and manage your accounts and transactions efficiently'
 					/>
 					<TotalBalanceBox

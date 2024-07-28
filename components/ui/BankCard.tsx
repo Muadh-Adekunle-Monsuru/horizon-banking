@@ -23,7 +23,7 @@ export default function BankCard({
 					<article className='flex flex-col gap-2'>
 						<div className='flex justify-between'>
 							<h1 className='text-12 font-semibold text-white'>{userName}</h1>
-							<h2 className='text-12 font-semibold text-white'>⬤⬤ / ⬤⬤</h2>
+							<h2 className='text-12 font-semibold text-white'>●● / ●●</h2>
 						</div>
 						<p className='text-14 font-semibold tracking-[1.1px] text-white text-nowrap'>
 							●●●● ●●●● ●●●●

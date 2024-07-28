@@ -100,7 +100,7 @@ const config = {
 					600: '#475467',
 					700: '#344054',
 					900: '#101828',
-				},
+				},darkmode:'#1f1f1f'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

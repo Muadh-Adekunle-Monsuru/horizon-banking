@@ -5,11 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import { ModeToggle } from './ThemeToggle';
+import Footer from './Footer';
 
 export default function Sidebar({ user }: SiderbarProps) {
 	const pathname = usePathname();
 	return (
-		<section className='sidebar'>
+		<section className='sidebar dark:bg-darkmode dark:border-gray-700'>
 			<nav className='flex flex-col gap-4'>
 				<Link
 					href={'/'}
@@ -22,11 +24,10 @@ export default function Sidebar({ user }: SiderbarProps) {
 						alt='horizon logo'
 						className='size-[24px] max-xl:size-14'
 					/>
-					<h1 className='sidebar-logo'>Horizon</h1>
+					<h1 className='sidebar-logo dark:text-blue-400'>Horizon</h1>
 				</Link>
 				{sidebarLinks.map((item) => {
-					const isActive =
-						pathname === item.route || pathname.startsWith(`${item.route}`);
+					const isActive = pathname === item.route;
 					return (
 						<Link
 							href={item.route}
@@ -38,18 +39,25 @@ export default function Sidebar({ user }: SiderbarProps) {
 									src={item.imgURL}
 									alt='item-label'
 									fill
-									className={cn(isActive && 'brightness-[3] invert-0')}
+									className={cn(
+										'dark:text-gray-300',
+										isActive && 'brightness-[3] invert-0'
+									)}
 								/>
 							</div>
-							<p className={cn('sidebar-label', isActive && '!text-white')}>
+							<p
+								className={cn(
+									'sidebar-label dark:text-gray-300',
+									isActive && '!text-white'
+								)}
+							>
 								{item.label}
 							</p>
 						</Link>
 					);
 				})}
-				USER
 			</nav>
-			Footer
+			<Footer user={user} type='desktop' />
 		</section>
 	);
 }

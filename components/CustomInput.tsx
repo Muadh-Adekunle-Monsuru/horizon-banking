@@ -16,12 +16,14 @@ interface Props {
 	name: FieldPath<z.infer<typeof formSchema>>;
 	label: string;
 	placeholder: string;
+	date?: boolean;
 }
 export default function CustomInput({
 	control,
 	name,
 	label,
 	placeholder,
+	date,
 }: Props) {
 	return (
 		<FormField
@@ -34,7 +36,7 @@ export default function CustomInput({
 						<Input
 							placeholder={placeholder}
 							{...field}
-							type={name === 'password' ? 'password' : 'text'}
+							type={name === 'password' ? 'password' : date ? 'date' : 'text'}
 						/>
 					</FormControl>
 					<FormMessage />
