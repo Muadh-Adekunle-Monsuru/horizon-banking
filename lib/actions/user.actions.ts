@@ -7,6 +7,7 @@ import { encryptId, extractCustomerIdFromUrl, parseStringify } from '../utils';
 import { revalidatePath } from 'next/cache';
 import prisma from '@/prisma/client';
 import { signInProps, SignUpParams } from '@/types';
+import { v4 as uuidv4 } from 'uuid';
 
 const {
 	APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -93,6 +94,38 @@ export const logoutAccount = async () => {
 
 		await account.deleteSession('current');
 	} catch (e) {
+		return null;
+	}
+};
+
+export const createBank = async (userId: string, bank: string) => {
+	try {
+		const user = await prisma.user.findUnique({
+			where: { id: userId },
+			select: { Banks: true },
+		});
+
+		if (!user) {
+			throw new Error('User not found');
+		}
+
+		const newBank = {
+			name: bank,
+			balance: 15000,
+			accountNumber: uuidv4(),
+			transactions: [],
+		};
+
+		const updatedBanks = [...user.Banks, newBank];
+
+		const updatedUser = await prisma.user.update({
+			where: { id: userId },
+			data: { Banks: updatedBanks },
+		});
+
+		return updatedUser;
+	} catch (e) {
+		console.log(e);
 		return null;
 	}
 };

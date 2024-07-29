@@ -30,7 +30,7 @@ export default function RightSidebar({
 			<section className='banks'>
 				<div className='flex w-full justify-between'>
 					<h2 className='header-2 dark:text-white'>My Banks</h2>
-					<Link href='/' className='flex gap-2 items-center'>
+					<Link href='/my-banks' className='flex gap-2 items-center'>
 						<Plus className='size-6' />
 						<p className='text-14 font-semibold text-gray-600 dark:text-gray-300 '>
 							Add Bank

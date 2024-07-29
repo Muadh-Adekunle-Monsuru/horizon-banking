@@ -1,4 +1,4 @@
-import { formatAmount } from '@/lib/utils';
+import { cn, formatAmount } from '@/lib/utils';
 import { CreditCardProps } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,14 +11,27 @@ export default function BankCard({
 }: CreditCardProps) {
 	return (
 		<div className='flex flex-col'>
-			<Link href='/' className='bank-card'>
-				<div className='bank-card_content'>
+			<Link href='/' className='bank-card '>
+				<div
+					className={cn(
+						'bank-card_content ',
+						account.name == 'stanbic' && 'bg-bank-gradient',
+						account.name == 'gt' &&
+							'bg-gradient-to-bl from-orange-300 to-orange-600',
+						account.name == 'first' &&
+							'bg-gradient-to-bl from-yellow-500 to-yellow-900'
+					)}
+				>
 					<div>
 						<h1 className='text-16 font-semibold text-white'>
-							{account.name || userName}
+							{account.name == 'stanbic'
+								? 'Stanbic Bank'
+								: account.name == 'gt'
+								? 'GT Bank'
+								: 'First Bank'}
 						</h1>
 						<p className='font-ibmPlex font-black text-white'>
-							{formatAmount(account.currentBalance)}
+							{formatAmount(account.balance)}
 						</p>
 					</div>
 					<article className='flex flex-col gap-2'>
@@ -26,13 +39,23 @@ export default function BankCard({
 							<h1 className='text-12 font-semibold text-white'>{userName}</h1>
 							<h2 className='text-12 font-semibold text-white'>●● / ●●</h2>
 						</div>
-						<p className='text-14 font-semibold tracking-[1.1px] text-white text-nowrap'>
-							●●●● ●●●● ●●●●
-							<span className='text-14 ml-1'>{account.mask || 1234}</span>
+						<p className='text-14 font-semibold tracking-[1.1px] text-white text-nowrap max-w-1/2 overflow-hidden'>
+							<span className='text-xs truncate ml-1'>
+								{account.accountNumber || '●●●● ●●●● ●●●●'}
+							</span>
 						</p>
 					</article>
 				</div>
-				<div className='bank-card_icon'>
+				<div
+					className={cn(
+						'bank-card_icon',
+						account.name == 'stanbic' && 'bg-bank-gradient',
+						account.name == 'gt' &&
+							'bg-gradient-to-bl from-orange-300 to-orange-600',
+						account.name == 'first' &&
+							'bg-gradient-to-bl from-yellow-500 to-yellow-900'
+					)}
+				>
 					<Image src={'/icons/Paypass.svg'} width={20} height={24} alt='icon' />
 					<Image
 						src={'/icons/mastercard.svg'}
