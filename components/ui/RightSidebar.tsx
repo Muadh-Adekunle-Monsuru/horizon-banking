@@ -15,11 +15,13 @@ export default function RightSidebar({
 				<div className='profile'>
 					<div className='profile-img'>
 						<span className='text-5xl font-bold text-blue-900 dark:text-blue-700'>
-							{user?.name[0]}
+							{user?.firstName[0]}
 						</span>
 					</div>
 					<div className='profile-details'>
-						<h1 className='profile-name dark:text-white'>{user?.name}</h1>
+						<h1 className='profile-name dark:text-white'>
+							{user?.firstName} {user?.lastName}
+						</h1>
 						<p className='profile-email dark:text-gray-300'>{user?.email}</p>
 					</div>
 				</div>
@@ -40,7 +42,7 @@ export default function RightSidebar({
 							<BankCard
 								key={banks[0].$id}
 								account={banks[0]}
-								userName={`${user?.name}`}
+								userName={`${user?.firstName}`}
 								showBalance={false}
 							/>
 						</div>
