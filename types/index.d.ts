@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 
+import { Banks, User } from '@prisma/client';
+
 declare type SearchParamProps = {
 	params: { [key: string]: string };
 	searchParams: { [key: string]: string | string[] | undefined };
@@ -10,12 +12,6 @@ declare type SearchParamProps = {
 declare type SignUpParams = {
 	firstName: string;
 	lastName: string;
-	address1: string;
-	city: string;
-	state: string;
-	postalCode: string;
-	dateOfBirth: string;
-	ssn: string;
 	email: string;
 	password: string;
 };
@@ -25,22 +21,22 @@ declare type LoginUser = {
 	password: string;
 };
 
-declare type User = {
-	$id: string;
-	email: string;
-	userId: string;
-	dwollaCustomerUrl: string;
-	dwollaCustomerId: string;
-	firstName: string;
-	lastName: string;
-	name: string;
-	address1: string;
-	city: string;
-	state: string;
-	postalCode: string;
-	dateOfBirth: string;
-	ssn: string;
-};
+// declare type User = {
+// 	$id: string;
+// 	email: string;
+// 	userId: string;
+// 	dwollaCustomerUrl: string;
+// 	dwollaCustomerId: string;
+// 	firstName: string;
+// 	lastName: string;
+// 	name: string;
+// 	address1: string;
+// 	city: string;
+// 	state: string;
+// 	postalCode: string;
+// 	dateOfBirth: string;
+// 	ssn: string;
+// };
 
 declare type NewUserParams = {
 	userId: string;
@@ -82,15 +78,15 @@ declare type Transaction = {
 	receiverBankId: string;
 };
 
-declare type Bank = {
-	$id: string;
-	accountId: string;
-	bankId: string;
-	accessToken: string;
-	fundingSourceUrl: string;
-	userId: string;
-	shareableId: string;
-};
+// declare type Bank = {
+// 	$id: string;
+// 	accountId: string;
+// 	bankId: string;
+// 	accessToken: string;
+// 	fundingSourceUrl: string;
+// 	userId: string;
+// 	shareableId: string;
+// };
 
 declare type AccountTypes =
 	| 'depository'
@@ -138,7 +134,7 @@ declare type NewDwollaCustomerParams = {
 };
 
 declare interface CreditCardProps {
-	account: Account;
+	account: Bank;
 	userName: string;
 	showBalance?: boolean;
 }
@@ -204,7 +200,7 @@ declare interface BankTabItemProps {
 }
 
 declare interface TotalBalanceBoxProps {
-	accounts: Account[];
+	accounts: Banks[];
 	totalBanks: number;
 	totalCurrentBalance: number;
 }
@@ -217,7 +213,7 @@ declare interface FooterProps {
 declare interface RightSidebarProps {
 	user: User;
 	transactions: Transaction[];
-	banks: Bank[] & Account[];
+	banks: Banks[];
 }
 
 declare interface SiderbarProps {
@@ -249,7 +245,7 @@ declare interface CategoryProps {
 }
 
 declare interface DoughnutChartProps {
-	accounts: Account[];
+	accounts: Banks[];
 }
 
 declare interface PaymentTransferFormProps {

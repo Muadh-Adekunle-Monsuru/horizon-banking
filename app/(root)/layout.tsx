@@ -1,6 +1,7 @@
 import MobileNav from '@/components/MobileNav';
 import Sidebar from '@/components/ui/Sidebar';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
+import prisma from '@/prisma/client';
 import Image from 'next/image';
 import { redirect, useRouter } from 'next/navigation';
 
@@ -9,8 +10,11 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const user = await getLoggedInUser();
-	if (!user) redirect('/sign-in');
+	const loggedInUser = await getLoggedInUser();
+	if (!loggedInUser) redirect('/sign-in');
+	const user = await prisma.user.findUnique({
+		where: { id: loggedInUser.$id },
+	});
 
 	return (
 		<main className='flex h-screen w-full font-inter'>

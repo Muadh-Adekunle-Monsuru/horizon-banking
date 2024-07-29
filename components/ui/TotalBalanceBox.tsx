@@ -1,9 +1,10 @@
 import React from 'react';
 import BalanceCounter from '../BalanceCounter';
 import DoughnutChart from './DoughnutChart';
+import { TotalBalanceBoxProps } from '@/types';
 
 export default function TotalBalanceBox({
-	accounts = [],
+	accounts,
 	totalBanks,
 	totalCurrentBalance,
 }: TotalBalanceBoxProps) {

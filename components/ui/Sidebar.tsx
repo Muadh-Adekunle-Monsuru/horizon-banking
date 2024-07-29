@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { ModeToggle } from './ThemeToggle';
 import Footer from './Footer';
+import { SiderbarProps } from '@/types';
 
 export default function Sidebar({ user }: SiderbarProps) {
 	const pathname = usePathname();

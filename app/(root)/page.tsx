@@ -1,24 +1,22 @@
 import HeaderText from '@/components/ui/HeaderText';
 import RightSidebar from '@/components/ui/RightSidebar';
 import TotalBalanceBox from '@/components/ui/TotalBalanceBox';
-import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getTotalBalance } from '@/lib/utils';
+import prisma from '@/prisma/client';
+import { SearchParamProps } from '@/types';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
 export default async function Home({
 	searchParams: { id, page },
 }: SearchParamProps) {
-	const user = await getLoggedInUser();
-	const accounts = await getAccounts({ userId: user.$id });
-	if (!accounts) return;
+	const loggedInUser = await getLoggedInUser();
 
-	const accountsData = accounts?.data;
-
-	const appwriteItemId = (id as string) || accounts?.data[0]?.appwriteItemId;
-
-	const account = await getAccount({ appwriteItemId });
-
+	const user = await prisma.user.findUnique({
+		where: { id: loggedInUser.$id },
+	});
+	const totalBalance = getTotalBalance(user.Banks);
 	return (
 		<section className='home dark:bg-darkmode'>
 			<div className='home-content'>
@@ -30,17 +28,13 @@ export default async function Home({
 						subtext='Access and manage your accounts and transactions efficiently'
 					/>
 					<TotalBalanceBox
-						accounts={accountsData}
-						totalBanks={accounts?.totalBanks}
-						totalCurrentBalance={accounts?.totalCurrentBalance}
+						accounts={user.Banks}
+						totalBanks={user.Banks.length}
+						totalCurrentBalance={totalBalance}
 					/>
 				</header>
 			</div>
-			<RightSidebar
-				user={user}
-				transactions={accounts?.transactions}
-				banks={accountsData?.slice(0, 2)}
-			/>
+			<RightSidebar user={user} transactions={[]} banks={user.Banks} />
 		</section>
 	);
 }
