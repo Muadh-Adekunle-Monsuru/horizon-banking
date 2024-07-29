@@ -24,6 +24,7 @@ import SignIn from '@/app/(auth)/sign-in/page';
 import { useRouter } from 'next/navigation';
 import SignUp from '@/app/(auth)/sign-up/page';
 import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
+import PlaidLink from './PlaidLink';
 
 export default function AuthForm({ type }: { type: string }) {
 	const [user, setUser] = useState(null);
@@ -45,14 +46,28 @@ export default function AuthForm({ type }: { type: string }) {
 
 		try {
 			if (type === 'sign-up') {
-				const newUser = await signUp(values);
+				const userData = {
+					firstName: values.firstName!,
+					lastName: values.lastName!,
+					address1: values.address1!,
+					city: values.city!,
+					state: values.state!,
+					postalCode: values.postalCode!,
+					dateOfBirth: values.dateOfBirth!,
+					ssn: values.ssn!,
+					email: values.email,
+					password: values.password,
+				};
+				const newUser = await signUp(userData);
 
 				setUser(newUser);
 			}
 			if (type === 'sign-in') {
-				const response = await signIn(
-					values
-				);
+				const signInVal = {
+					email: values.email!,
+					password: values.password!,
+				};
+				const response = await signIn(signInVal);
 				if (response) router.push('/');
 			}
 		} catch (e) {
@@ -89,8 +104,11 @@ export default function AuthForm({ type }: { type: string }) {
 					</h1>
 				</div>
 			</header>
+
 			{user ? (
-				<div className='flex flex-col gap-4'></div>
+				<div className='flex flex-col gap-4'>
+					<PlaidLink user={user} variant='primary' />
+				</div>
 			) : (
 				<>
 					<Form {...form}>
@@ -134,7 +152,7 @@ export default function AuthForm({ type }: { type: string }) {
 											control={form.control}
 											label='State'
 											name='state'
-											placeholder='Enter your state'
+											placeholder='NY'
 										/>
 									</div>
 									<div className='flex gap-4'>

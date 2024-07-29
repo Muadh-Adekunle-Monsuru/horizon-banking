@@ -15,12 +15,12 @@ export default function RightSidebar({
 				<div className='profile'>
 					<div className='profile-img'>
 						<span className='text-5xl font-bold text-blue-900 dark:text-blue-700'>
-							{user.name[0]}
+							{user?.name[0]}
 						</span>
 					</div>
 					<div className='profile-details'>
-						<h1 className='profile-name dark:text-white'>{user.name}</h1>
-						<p className='profile-email dark:text-gray-300'>{user.email}</p>
+						<h1 className='profile-name dark:text-white'>{user?.name}</h1>
+						<p className='profile-email dark:text-gray-300'>{user?.email}</p>
 					</div>
 				</div>
 			</section>
@@ -40,16 +40,16 @@ export default function RightSidebar({
 							<BankCard
 								key={banks[0].$id}
 								account={banks[0]}
-								userName={`${user.name}`}
+								userName={`${user?.name}`}
 								showBalance={false}
 							/>
 						</div>
 						{banks[1] && (
 							<div className='absolute right-0 top-8 z-0 w-[90%]'>
 								<BankCard
-									key={banks[1].$id}
+									key={banks[1]?.$id}
 									account={banks[1]}
-									userName={`${user.firstName} ${user.lastName}`}
+									userName={`${user?.firstName} ${user?.lastName}`}
 									showBalance={false}
 								/>
 							</div>

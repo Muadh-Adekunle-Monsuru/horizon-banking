@@ -2,10 +2,12 @@ import HeaderText from '@/components/ui/HeaderText';
 import RightSidebar from '@/components/ui/RightSidebar';
 import TotalBalanceBox from '@/components/ui/TotalBalanceBox';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 export default async function Home() {
 	const user = await getLoggedInUser();
+	if (!user) redirect('/sign-in');
 	return (
 		<section className='home dark:bg-darkmode'>
 			<div className='home-content'>
