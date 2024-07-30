@@ -9,37 +9,7 @@ import { z } from 'zod';
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
-function formatTimestamp(timestampString) {
-	// Convert the string to a number
-	const timestamp = parseInt(timestampString, 10);
 
-	// Create a Date object from the timestamp
-	const date = new Date(timestamp);
-
-	// Options for formatting the date
-	const options = {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-	};
-
-	// Format the date to the required format
-	const formattedDate = date.toLocaleDateString('en-GB', options);
-
-	// Get the day part and add the correct ordinal suffix
-	const day = date.getDate();
-	const suffix =
-		day % 10 === 1 && day !== 11
-			? 'st'
-			: day % 10 === 2 && day !== 12
-			? 'nd'
-			: day % 10 === 3 && day !== 13
-			? 'rd'
-			: 'th';
-
-	// Combine the formatted date with the ordinal suffix
-	return formattedDate.replace(/(\d{1,2})/, `$1${suffix}`);
-}
 // FORMAT DATE TIME
 export const formatDateTime = (dateString: any) => {
 	const dateTimeOptions: Intl.DateTimeFormatOptions = {
