@@ -31,9 +31,9 @@ export default function TransactionPage({
 		<div className='py-10'>
 			<h2 className='font-medium'>Your History</h2>
 			<p className='text-sm text-gray-600 pb-4'>
-				Select a transaction to view full details.
+				Select a transaction to view complete transaction details.
 			</p>
-			<div>
+			<div className=''>
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -43,7 +43,7 @@ export default function TransactionPage({
 							<TableHead>Date</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody>
+					<TableBody className='w-full overflow-x-auto'>
 						{transactions
 							.sort((a, b) => Number(b.date) - Number(a.date))
 							.slice((currentPage - 1) * itemCount, currentPage * itemCount)
@@ -53,33 +53,35 @@ export default function TransactionPage({
 					</TableBody>
 				</Table>
 			</div>
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem className='select-none'>
-						<PaginationPrevious
-							onClick={() => {
-								if (currentPage == 1) return;
-								setCurrentPage((prev) => prev - 1);
-								console.log(`page ${currentPage} out of ${pageCount}`);
-							}}
-						/>
-					</PaginationItem>
-					<PaginationItem className='select-none'>
-						<PaginationLink>
-							{currentPage} of {pageCount}
-						</PaginationLink>
-					</PaginationItem>
-					<PaginationItem className='select-none'>
-						<PaginationNext
-							onClick={() => {
-								if (currentPage == pageCount) return;
-								setCurrentPage((prev) => prev + 1);
-								console.log(`page ${currentPage} out of ${pageCount}`);
-							}}
-						/>
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+			{pageCount > 1 && (
+				<Pagination>
+					<PaginationContent>
+						<PaginationItem className='select-none'>
+							<PaginationPrevious
+								onClick={() => {
+									if (currentPage == 1) return;
+									setCurrentPage((prev) => prev - 1);
+									console.log(`page ${currentPage} out of ${pageCount}`);
+								}}
+							/>
+						</PaginationItem>
+						<PaginationItem className='select-none'>
+							<PaginationLink>
+								{currentPage} of {pageCount}
+							</PaginationLink>
+						</PaginationItem>
+						<PaginationItem className='select-none'>
+							<PaginationNext
+								onClick={() => {
+									if (currentPage == pageCount) return;
+									setCurrentPage((prev) => prev + 1);
+									console.log(`page ${currentPage} out of ${pageCount}`);
+								}}
+							/>
+						</PaginationItem>
+					</PaginationContent>
+				</Pagination>
+			)}
 		</div>
 	);
 }

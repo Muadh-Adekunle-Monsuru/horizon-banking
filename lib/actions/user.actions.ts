@@ -10,6 +10,7 @@ import { signInProps, SignUpParams } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
 import { nanoid } from 'nanoid';
 import { Transactions } from '@prisma/client';
+import { toast } from 'sonner';
 
 const {
 	APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -195,6 +196,9 @@ const updateSender = async (data: Transactions) => {
 		throw new Error('Sender bank not found');
 	}
 
+	if (data.amount > senderBank.balance) {
+		throw new Error('Insufficient Fund');
+	}
 	// Calculate the new sender balance
 	const newSenderBalance = Number(senderBank.balance) - Number(data.amount);
 
@@ -278,6 +282,6 @@ export const createTransaction = async (
 		return 'success';
 	} catch (e) {
 		console.log(e);
-		return 'error';
+		return `${e}`;
 	}
 };

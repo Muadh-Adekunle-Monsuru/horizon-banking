@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { User } from '@prisma/client';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { Loader } from 'lucide-react';
+import { Loader, LucideMessageSquareWarning } from 'lucide-react';
 
 const transactionSchema = z.object({
 	id: z.string(),
@@ -53,7 +53,7 @@ export default function TransferForm({ user }: { user: User }) {
 	const scrollToError = () => {
 		const element = document.getElementById('error');
 		if (element) {
-			element.scrollIntoView({ behavior: 'smooth' });
+			element.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		}
 	};
 	const handleSubmit = async (e) => {
@@ -81,23 +81,38 @@ export default function TransferForm({ user }: { user: User }) {
 			let response = await createTransaction(transactionData, user.id);
 			if (response == 'success') {
 				toast.success('Transaction Succsessful');
+				setReceipientName('');
+				setReceipientBanks([]);
+				setEmail('');
+				setNarration('');
+				setTransferAmout('');
+				setReceivingBank('');
 			} else {
 				toast.error('Transaction Failed, Try again!');
-				setError('Transaction Failed');
-				scrollToError();
+				setError(`Transaction Failed ${response}`);
 			}
 		} catch (e) {
 			console.error('Validation failed', e.errors);
 			setError('Invalid or Incomplete Transaction Details');
-			scrollToError();
 		} finally {
 			setSending(false);
+			scrollToError();
 		}
 	};
 	return (
 		<form className='lg:max-w-3xl'>
-			<p className='font-semibold text-red-900' id='error'>
-				{error}
+			<p
+				className='font-semibold text-red-900 flex gap-4 items-center'
+				id='error'
+			>
+				{error.length > 0 && (
+					<>
+						<span>
+							<LucideMessageSquareWarning className='size-5 animate-pulse' />
+						</span>
+						<span>{error}</span>
+					</>
+				)}
 			</p>
 
 			<div className='flex flex-col gap-5 md:flex-row lg:gap-10 py-5'>

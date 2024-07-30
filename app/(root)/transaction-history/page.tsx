@@ -1,6 +1,10 @@
 import TransactionPage from '@/components/TransactionPage';
+import { Button } from '@/components/ui/button';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 import prisma from '@/prisma/client';
+import { Plus } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export default async function TransactionHistoryPage() {
@@ -19,7 +23,24 @@ export default async function TransactionHistoryPage() {
 					Gain Insights and Track Your Transactions Over Time
 				</p>
 			</div>
-			<TransactionPage transactions={transactions} />
+			{transactions.length > 0 ? (
+				<TransactionPage transactions={transactions} />
+			) : (
+				<div className='flex flex-col items-center justify-center gap-5 py-10'>
+					<p>No transactions recorded</p>
+					<Image
+						src={'/transaction.svg'}
+						width={300}
+						height={300}
+						alt='empty transaction'
+					/>
+					<Button asChild>
+						<Link href={'/payment-transfer'}>
+							Make Transaction <Plus className='size-4' />
+						</Link>
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 }

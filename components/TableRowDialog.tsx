@@ -11,6 +11,7 @@ import { TableCell, TableRow } from './ui/table';
 import { Transactions } from '@prisma/client';
 import { cn, formatAmount, formatDateTime } from '@/lib/utils';
 import { Input } from './ui/input';
+import GenerateReceipt from './GenerateReceipts';
 
 export default function TableRowDialog({
 	transaction,
@@ -167,6 +168,7 @@ export default function TableRowDialog({
 						</div>
 					</div>
 				</DialogHeader>
+				<GenerateReceipt transaction={transaction} />
 			</DialogContent>
 		</Dialog>
 	);

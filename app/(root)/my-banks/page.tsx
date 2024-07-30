@@ -3,6 +3,7 @@ import BankCardDialog from '@/components/BankCardDialog';
 import BankCard from '@/components/ui/BankCard';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 import prisma from '@/prisma/client';
+import Image from 'next/image';
 import React from 'react';
 
 export default async function MyBanksPage() {
@@ -40,7 +41,17 @@ export default async function MyBanksPage() {
 							</div>
 						</>
 					) : (
-						'No card is linked with this account. Create a new bank account. '
+						<div className='w-full h-full flex flex-col gap-5 items-center justify-center'>
+							<p>
+								No card is linked with this account. Create a new bank account.
+							</p>
+							<Image
+								src={'/wallet.svg'}
+								alt='wallet'
+								width={300}
+								height={300}
+							/>
+						</div>
 					)}
 				</div>
 			</div>
