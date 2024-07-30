@@ -3,6 +3,7 @@ import { Inter, IBM_Plex_Serif } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const ibmPlex = IBM_Plex_Serif({
@@ -39,6 +40,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
+					<Toaster position='top-right' />
 					{children}
 				</ThemeProvider>
 			</body>

@@ -17,14 +17,14 @@ model User {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   email     String  @unique
   firstName String
-  lastName  String 
-  Banks     Banks[] 
+  lastName  String
+  Banks     Banks[]
 }
 
 type Banks {
   name          String
   balance       Int
-  accountNumber String 
+  accountNumber String
   transactions  Transactions[]
 }
 
@@ -35,8 +35,10 @@ type Transactions {
   receiverAccount String
   receiverBank    String
   receiverName    String
-  date            DateTime @default(now())
+  date           String 
   amount          Int
   type            String
   narration       String
+  receiverEmail   String
+  senderEmail     String
 }

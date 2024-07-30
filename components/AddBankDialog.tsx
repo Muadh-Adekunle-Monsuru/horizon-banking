@@ -14,19 +14,24 @@ import { Plus } from 'lucide-react';
 import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { createBank } from '@/lib/actions/user.actions';
+import { useRouter } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export default function AddBankDialog({ userId }: { userId: string }) {
+	const router = useRouter();
 	const [bank, setBank] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 		if (!bank) {
 			setOpen(false);
 			return null;
 		}
 		const newBank = await createBank(userId, bank);
 		setOpen(false);
+		router.refresh();
 	};
 	return (
 		<div>

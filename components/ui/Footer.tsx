@@ -19,6 +19,7 @@ export default function Footer({ user, type }: FooterProps) {
 			<footer className='footer'>
 				<div
 					className={cn(
+						'w-full',
 						type == 'mobile' ? 'footer_name-mobile' : 'footer_name'
 					)}
 				>
@@ -28,6 +29,7 @@ export default function Footer({ user, type }: FooterProps) {
 				</div>
 				<div
 					className={cn(
+						' w-full',
 						type == 'mobile' ? 'footer_email-mobile' : 'footer_email'
 					)}
 				>
@@ -38,7 +40,7 @@ export default function Footer({ user, type }: FooterProps) {
 						{user?.email}
 					</p>
 				</div>
-				<div className='footer_image' onClick={handleLogout}>
+				<div className='footer_image w-full' onClick={handleLogout}>
 					<Image src={'icons/logout.svg'} fill alt='jsm' />
 				</div>
 			</footer>
