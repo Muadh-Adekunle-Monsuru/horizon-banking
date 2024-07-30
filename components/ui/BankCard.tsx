@@ -10,8 +10,8 @@ export default function BankCard({
 	showBalance = true,
 }: CreditCardProps) {
 	return (
-		<div className='flex flex-col'>
-			<Link href='/' className='bank-card '>
+		<div className='flex flex-col mx-auto'>
+			<div className='bank-card cursor-pointer'>
 				<div
 					className={cn(
 						'bank-card_content ',
@@ -73,7 +73,7 @@ export default function BankCard({
 					className='absolute top-0 left-0'
 				/>
 				{/* copy */}
-			</Link>
+			</div>
 		</div>
 	);
 }

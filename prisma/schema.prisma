@@ -41,4 +41,5 @@ type Transactions {
   narration       String
   receiverEmail   String
   senderEmail     String
+  senderName    String?
 }

@@ -1,4 +1,5 @@
 import AddBankDialog from '@/components/AddBankDialog';
+import BankCardDialog from '@/components/BankCardDialog';
 import BankCard from '@/components/ui/BankCard';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 import prisma from '@/prisma/client';
@@ -11,7 +12,7 @@ export default async function MyBanksPage() {
 		where: { id: loggedInUser.$id },
 	});
 	return (
-		<div className='h-full w-full p-5'>
+		<div className='h-full w-full p-5 overflow-y-auto'>
 			<div>
 				<h1 className='text-2xl font-semibold'>My Bank Accounts</h1>
 				<p className='text-sm text-gray-500'>
@@ -26,10 +27,10 @@ export default async function MyBanksPage() {
 				<div className='py-4 font-light text-gray-700'>
 					{user.Banks.length > 0 ? (
 						<>
-							<div className='flex flex-wrap gap-4'>
+							<div className='flex flex-wrap gap-4 justify-center md:justify-normal'>
 								{user.Banks.map((bank) => (
 									<div key={bank.accountNumber}>
-										<BankCard
+										<BankCardDialog
 											account={bank}
 											userName={`${user.firstName} ${user.lastName}`}
 											showBalance={true}

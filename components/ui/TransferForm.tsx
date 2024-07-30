@@ -27,11 +27,11 @@ const transactionSchema = z.object({
 	narration: z.string().optional(),
 	receiverEmail: z.string().email(),
 	senderEmail: z.string().email(),
+	senderName: z.string(),
 });
 export default function TransferForm({ user }: { user: User }) {
 	const [receipientName, setReceipientName] = useState('');
 	const [receipientBanks, setReceipientBanks] = useState([]);
-	const [receipientAccount, setReceipientAccount] = useState('');
 	const [email, setEmail] = useState('');
 	const [sourceBank, setSourceBank] = useState('');
 	const [narration, setNarration] = useState('');
@@ -50,42 +50,56 @@ export default function TransferForm({ user }: { user: User }) {
 		setReceipientName(`${receipient.firstName} ${receipient.lastName}`);
 		setReceipientBanks(receipient.Banks);
 	};
-
+	const scrollToError = () => {
+		const element = document.getElementById('error');
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setSending(true);
-
-		const transactionData = {
-			id: uuidv4(),
-			senderAccount: JSON.parse(sourceBank).accountNumber,
-			senderBank: JSON.parse(sourceBank).name,
-			receiverAccount: JSON.parse(receivingBank).accountNumber,
-			receiverBank: JSON.parse(receivingBank).name,
-			receiverName: receipientName,
-			date: Date.now().toString(),
-			amount: Number(transferAmount),
-			type: '',
-			narration: narration || 'No narrations',
-			receiverEmail: email,
-			senderEmail: user.email,
-		};
+		setError('');
 
 		try {
+			const transactionData = {
+				id: uuidv4(),
+				senderAccount: JSON.parse(sourceBank).accountNumber,
+				senderBank: JSON.parse(sourceBank).name,
+				receiverAccount: JSON.parse(receivingBank).accountNumber,
+				receiverBank: JSON.parse(receivingBank).name,
+				receiverName: receipientName,
+				date: Date.now().toString(),
+				amount: Number(transferAmount),
+				type: '',
+				narration: narration || 'No narrations',
+				receiverEmail: email,
+				senderEmail: user.email,
+				senderName: `${user.firstName} ${user.lastName}`,
+			};
 			transactionSchema.parse(transactionData);
 			let response = await createTransaction(transactionData, user.id);
 			if (response == 'success') {
 				toast.success('Transaction Succsessful');
 			} else {
 				toast.error('Transaction Failed, Try again!');
+				setError('Transaction Failed');
+				scrollToError();
 			}
 		} catch (e) {
 			console.error('Validation failed', e.errors);
+			setError('Invalid or Incomplete Transaction Details');
+			scrollToError();
 		} finally {
 			setSending(false);
 		}
 	};
 	return (
 		<form className='lg:max-w-3xl'>
+			<p className='font-semibold text-red-900' id='error'>
+				{error}
+			</p>
+
 			<div className='flex flex-col gap-5 md:flex-row lg:gap-10 py-5'>
 				<Label>
 					<p className='text-lg'>Select Your Source Bank</p>
