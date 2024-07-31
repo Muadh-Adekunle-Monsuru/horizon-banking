@@ -39,16 +39,20 @@ export default function TransferForm({ user }: { user: User }) {
 	const [receivingBank, setReceivingBank] = useState('');
 	const [sending, setSending] = useState(false);
 	const [error, setError] = useState('');
-
+	const [searching, setSearching] = useState('');
 	const searchRecipient = async (value) => {
+		setSearching('Searching...');
 		const receipient = await getReceipientAccount(value);
 		if (!receipient) {
 			setReceipientName('');
+			setReceipientBanks([]);
+			setSearching('Not Found!');
 			return;
 		}
 
 		setReceipientName(`${receipient.firstName} ${receipient.lastName}`);
 		setReceipientBanks(receipient.Banks);
+		setSearching('');
 	};
 	const scrollToError = () => {
 		const element = document.getElementById('error');
@@ -102,7 +106,7 @@ export default function TransferForm({ user }: { user: User }) {
 	return (
 		<form className='lg:max-w-3xl'>
 			<p
-				className='font-semibold text-red-900 flex gap-4 items-center'
+				className='font-semibold text-red-900 dark:text-red-500 flex gap-4 items-center'
 				id='error'
 			>
 				{error.length > 0 && (
@@ -195,14 +199,17 @@ export default function TransferForm({ user }: { user: User }) {
 						Email address of the receipient.
 					</p>
 				</Label>
-				<Input
-					placeholder='example@gmail.com'
-					onChange={(e) => {
-						setEmail(e.target.value);
-						searchRecipient(e.target.value);
-					}}
-					value={email}
-				/>
+				<div className='flex flex-col gap-2'>
+					<Input
+						placeholder='example@gmail.com'
+						onChange={(e) => {
+							setEmail(e.target.value);
+							searchRecipient(e.target.value.trim());
+						}}
+						value={email}
+					/>
+					<p>{searching}</p>
+				</div>
 			</div>
 
 			<div className='w-full border-t border-gray-200 mx-auto my-4' />

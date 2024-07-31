@@ -69,102 +69,63 @@ export default function TableRowDialog({
 					<div className='grid divide-y-2'>
 						<div className='grid grid-cols-2 py-3 items-center'>
 							<p>Transaction ID:</p>
-							<Input
-								className='disabled:text-gray-800'
-								disabled
-								value={transaction.id}
-							/>
+							<p>{transaction.id}</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center'>
 							<p>Transaction Type:</p>
-							<Input
-								className='disabled:text-gray-800'
-								disabled
-								value={transaction.type}
-							/>
+
+							<p>{transaction.type}</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center '>
 							<p>Amount:</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={formatAmount(transaction.amount)}
-							/>
+							<p>{formatAmount(transaction.amount)}</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center'>
 							<p>
 								{transaction.type == 'credit' ? 'Sender ' : 'Receiver '}Name:
 							</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={
-									transaction.type == 'credit'
-										? `${transaction.senderName}`
-										: `${transaction.receiverName}`
-								}
-							/>
+							<p>
+								{transaction.type == 'credit'
+									? `${transaction.senderName}`
+									: `${transaction.receiverName}`}
+							</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center '>
 							<p>Narration:</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={transaction.narration}
-							/>
+							<p>{transaction.narration}</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center'>
 							<p>Sender Account:</p>
-							<Input
-								className='disabled:text-gray-800'
-								disabled
-								value={transaction.senderAccount}
-							/>
+							<p>{transaction.senderAccount}</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center'>
 							<p>Sender Bank:</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={
-									transaction.senderBank == 'stanbic'
-										? 'Stanbic Bank'
-										: transaction.senderBank == 'gt'
-										? 'GT Bank'
-										: 'First Bank'
-								}
-							/>
+							<p>
+								{transaction.senderBank == 'stanbic'
+									? 'Stanbic Bank'
+									: transaction.senderBank == 'gt'
+									? 'GT Bank'
+									: 'First Bank'}
+							</p>
 						</div>
 
 						<div className='grid grid-cols-2 py-3 items-center'>
 							<p>Receiver Account:</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={transaction.receiverAccount}
-							/>
+							<p>{transaction.receiverAccount}</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center '>
 							<p>Receiver Bank:</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={
-									transaction.receiverBank == 'stanbic'
-										? 'Stanbic Bank'
-										: transaction.receiverBank == 'gt'
-										? 'GT Bank'
-										: 'First Bank'
-								}
-							/>
+							<p>
+								{transaction.receiverBank == 'stanbic'
+									? 'Stanbic Bank'
+									: transaction.receiverBank == 'gt'
+									? 'GT Bank'
+									: 'First Bank'}
+							</p>
 						</div>
 						<div className='grid grid-cols-2 py-3 items-center '>
 							<p>Date:</p>
-							<Input
-								className='disabled:text-gray-900'
-								disabled
-								value={formatDateTime(Number(transaction.date)).dateTime}
-							/>
+							<p>{formatDateTime(Number(transaction.date)).dateTime}</p>
 						</div>
 					</div>
 				</DialogHeader>

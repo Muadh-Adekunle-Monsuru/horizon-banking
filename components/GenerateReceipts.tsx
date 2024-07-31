@@ -38,7 +38,7 @@ const GenerateReceipt = ({ transaction }) => {
 
 		// Determine which logo to use
 		let bankImage;
-		switch (transaction.receiverBank) {
+		switch (transaction.senderBank) {
 			case 'stanbic':
 				bankImage = stanbicImage;
 				break;

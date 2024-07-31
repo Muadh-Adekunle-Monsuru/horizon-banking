@@ -29,7 +29,7 @@ export default function BankCardDialog({
 				<div className='p-4'>
 					<p>
 						<span className='font-semibold'>Bank Name:</span>
-						<span className='font-light text-gray-700 ml-2'>
+						<span className=' text-gray-700 ml-2 dark:text-gray-300'>
 							{account.name == 'stanbic'
 								? 'Stanbic Bank'
 								: account.name == 'gt'
@@ -39,13 +39,13 @@ export default function BankCardDialog({
 					</p>
 					<p>
 						<span className='font-semibold'>Account Number:</span>
-						<span className='font-light text-gray-700 ml-2'>
+						<span className=' text-gray-700 ml-2 dark:text-gray-300'>
 							{account.accountNumber}
 						</span>
 					</p>
 					<p>
 						<span className='font-semibold'>Account Balance:</span>{' '}
-						<span className='font-light text-gray-700 ml-2'>
+						<span className=' text-gray-700 ml-2 dark:text-gray-300'>
 							{formatAmount(account.balance)}
 						</span>
 					</p>

@@ -10,7 +10,7 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from './ui/button';
-import { Plus } from 'lucide-react';
+import { Loader2, Plus } from 'lucide-react';
 import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { createBank } from '@/lib/actions/user.actions';
@@ -29,8 +29,10 @@ export default function AddBankDialog({ userId }: { userId: string }) {
 			setOpen(false);
 			return null;
 		}
+		setLoading(true);
 		const newBank = await createBank(userId, bank);
 		setOpen(false);
+		setLoading(false);
 		router.refresh();
 	};
 	return (
@@ -99,8 +101,15 @@ export default function AddBankDialog({ userId }: { userId: string }) {
 								</div>
 							</RadioGroup>
 						</div>
-						<Button onClick={handleSubmit} className='my-4'>
-							Submit
+						<Button onClick={handleSubmit} className='my-4' disabled={loading}>
+							{loading ? (
+								<>
+									<Loader2 className='size-4 animate-spin' />
+									Loading
+								</>
+							) : (
+								'Submit'
+							)}
 						</Button>
 					</form>
 				</DialogContent>

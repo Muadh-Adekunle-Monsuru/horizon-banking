@@ -43,7 +43,7 @@ export default async function MyBanksPage() {
 						</>
 					) : (
 						<div className='w-full h-full flex flex-col gap-5 items-center justify-center'>
-							<p>
+							<p className='dark:text-gray-200'>
 								No card is linked with this account. Create a new bank account.
 							</p>
 							<Image

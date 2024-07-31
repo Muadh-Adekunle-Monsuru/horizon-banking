@@ -58,7 +58,10 @@ export default function Sidebar({ user }: SiderbarProps) {
 					);
 				})}
 			</nav>
-			<Footer user={user} type='desktop' />
+			<div>
+				<ModeToggle />
+				<Footer user={user} type='desktop' />
+			</div>
 		</section>
 	);
 }

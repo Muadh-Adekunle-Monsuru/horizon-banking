@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Footer from './ui/Footer';
 import { MobileNavProps } from '@/types';
+import { ModeToggle } from './ui/ThemeToggle';
 export default function MobileNav({ user }: MobileNavProps) {
 	const pathname = usePathname();
 	return (
@@ -25,7 +26,7 @@ export default function MobileNav({ user }: MobileNavProps) {
 				<SheetTrigger>
 					<Menu className='w-6' />
 				</SheetTrigger>
-				<SheetContent>
+				<SheetContent className='pb-5'>
 					<Link
 						href={'/'}
 						className='mb-1 cursor-pointer items-center gap-1 px-4 flex'
@@ -74,10 +75,10 @@ export default function MobileNav({ user }: MobileNavProps) {
 										</SheetClose>
 									);
 								})}
-								USER
 							</nav>
 						</SheetClose>
-						<div className='mb-10 '>
+						<div className=''>
+							<ModeToggle />
 							<Footer user={user} type='mobile' />
 						</div>
 					</div>

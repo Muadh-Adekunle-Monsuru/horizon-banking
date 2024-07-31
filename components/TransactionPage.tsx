@@ -18,6 +18,9 @@ import {
 import { Transactions } from '@prisma/client';
 import TableRowDialog from './TableRowDialog';
 import { useState } from 'react';
+import { Button } from './ui/button';
+import { RefreshCcwIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function TransactionPage({
 	transactions,
@@ -26,13 +29,21 @@ export default function TransactionPage({
 }) {
 	const [itemCount, setItemCount] = useState(6);
 	const [currentPage, setCurrentPage] = useState(1);
+	const router = useRouter();
 	let pageCount = Math.ceil(transactions.length / itemCount);
 	return (
 		<div className='py-10'>
-			<h2 className='font-medium'>Your History</h2>
-			<p className='text-sm text-gray-600 pb-4'>
-				Select a transaction to view complete transaction details.
-			</p>
+			<div className='flex justify-between items-center'>
+				<div>
+					<h2 className='font-medium'>Your History</h2>
+					<p className='text-sm text-gray-600 pb-4'>
+						Select a transaction to view complete transaction details.
+					</p>
+				</div>
+				<Button variant='ghost' onClick={() => router.refresh()}>
+					<RefreshCcwIcon className='size-4 mr-2' /> Refresh
+				</Button>
+			</div>
 			<div className=''>
 				<Table>
 					<TableHeader>
