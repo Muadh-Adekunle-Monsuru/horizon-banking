@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import TransactionPage from '@/components/TransactionPage';
 import { Button } from '@/components/ui/button';
 import { getLoggedInUser } from '@/lib/actions/user.actions';

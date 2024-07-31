@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import AddBankDialog from '@/components/AddBankDialog';
 import BankCardDialog from '@/components/BankCardDialog';
 import BankCard from '@/components/ui/BankCard';

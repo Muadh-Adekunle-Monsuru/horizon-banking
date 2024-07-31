@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import GenerateReceipt from '@/components/GenerateReceipts';
 import LatestTransfter from '@/components/LatestTransfter';
 import { Button } from '@/components/ui/button';

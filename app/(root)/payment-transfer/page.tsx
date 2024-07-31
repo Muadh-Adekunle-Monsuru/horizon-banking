@@ -1,13 +1,8 @@
-import { Label } from '@/components/ui/label';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
-import { formatAmount } from '@/lib/utils';
-import prisma from '@/prisma/client';
-import React from 'react';
-import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+export const dynamic = 'force-dynamic';
 import { Separator } from '@/components/ui/separator';
 import TransferForm from '@/components/ui/TransferForm';
+import { getLoggedInUser } from '@/lib/actions/user.actions';
+import prisma from '@/prisma/client';
 
 export default async function PaymentTransferPage() {
 	const loggedInUser = await getLoggedInUser();
